@@ -1,0 +1,26 @@
+{
+  "workspaces": [
+    "backend",
+    "frontend",
+    "infra"
+  ],
+  "scripts": {
+    "dev:front": "npm run -w frontend dev",
+    "dev:infra": "npx -w infra cdk watch",
+    "dev": "npm-run-all2 -p dev:*",
+    "test": "npx vitest --silent",
+    "coverage": "npx vitest run --coverage",
+    "deploy": "npm run -w frontend build && npx -w infra cdk deploy"
+  },
+  "devDependencies": {
+    "@eslint/compat": "1.2.4",
+    "@types/node": "22.10.5",
+    "esbuild": "0.24.2",
+    "eslint": "9.17.0",
+    "npm-check-updates": "17.1.13",
+    "npm-run-all2": "7.0.2",
+    "prettier": "3.4.2",
+    "typescript": "5.7.2",
+    "typescript-eslint": "8.19.0"
+  }
+}

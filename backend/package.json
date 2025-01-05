@@ -1,0 +1,20 @@
+{
+  "name": "backend",
+  "type": "module",
+  "scripts": {
+    "build": "esbuild --bundle --outfile=./dist/index.js --platform=node --target=node20 ./src/index.ts",
+    "zip": "zip -j lambda.zip dist/index.js",
+    "update": "aws lambda update-function-code --zip-file fileb://lambda.zip --function-name hello",
+    "deploy": "run-s build zip update"
+  },
+  "dependencies": {
+    "@aws-sdk/client-cognito-identity-provider": "3.721.0",
+    "@aws-sdk/client-dynamodb": "3.721.0",
+    "@aws-sdk/lib-dynamodb": "3.721.0",
+    "hono": "4.6.16"
+  },
+  "devDependencies": {
+    "@vitest/coverage-v8": "2.1.8",
+    "vitest": "2.1.8"
+  }
+}
