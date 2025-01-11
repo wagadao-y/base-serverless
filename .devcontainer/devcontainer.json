@@ -4,7 +4,7 @@
     "dockerfile": "Dockerfile",
     "args": {
       "AMAZON_LINUX_TAG": "2023.6.20241212.0",
-      "NVM_NODE_VERSION": "v22.12.0"
+      "NVM_NODE_VERSION": "v22.13.0"
     }
   },
   "customizations": {
