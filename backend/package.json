@@ -8,13 +8,13 @@
     "deploy": "run-s build zip update"
   },
   "dependencies": {
-    "@aws-sdk/client-cognito-identity-provider": "3.721.0",
-    "@aws-sdk/client-dynamodb": "3.721.0",
-    "@aws-sdk/lib-dynamodb": "3.721.0",
-    "hono": "4.6.16"
+    "@aws-sdk/client-cognito-identity-provider": "3.734.0",
+    "@aws-sdk/client-dynamodb": "3.734.0",
+    "@aws-sdk/lib-dynamodb": "3.734.0",
+    "hono": "4.6.18"
   },
   "devDependencies": {
-    "@vitest/coverage-v8": "2.1.8",
-    "vitest": "2.1.8"
+    "@vitest/coverage-v8": "3.0.4",
+    "vitest": "3.0.4"
   }
 }
