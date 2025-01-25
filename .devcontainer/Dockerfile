@@ -34,10 +34,6 @@ RUN groupadd --gid $USER_GID $USERNAME \
   && echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/$USERNAME \
   && chmod 0440 /etc/sudoers.d/$USERNAME
 
-# 作業フォルダ作成
-# WORKDIR /workspace
-# RUN chown $USERNAME:$USERNAME /workspace
-
 # 以降はvscodeユーザーで実行
 USER $USERNAME
 
