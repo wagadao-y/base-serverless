@@ -35,8 +35,8 @@ RUN groupadd --gid $USER_GID $USERNAME \
   && chmod 0440 /etc/sudoers.d/$USERNAME
 
 # 作業フォルダ作成
-WORKDIR /workspace
-RUN chown $USERNAME:$USERNAME /workspace
+# WORKDIR /workspace
+# RUN chown $USERNAME:$USERNAME /workspace
 
 # 以降はvscodeユーザーで実行
 USER $USERNAME
