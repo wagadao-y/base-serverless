@@ -7,7 +7,6 @@ import * as cloudfront from "aws-cdk-lib/aws-cloudfront";
 import * as origins from "aws-cdk-lib/aws-cloudfront-origins";
 import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import * as cognito from "aws-cdk-lib/aws-cognito";
-import * as custom_resources from "aws-cdk-lib/custom-resources";
 import type { Construct } from "constructs";
 
 // カスタムプロパティのインターフェースを定義
@@ -103,6 +102,8 @@ export class InfraStack extends cdk.Stack {
       authFlows: {
         adminUserPassword: true, // IAMロールを使ったバックエンドからの認証を許可
       },
+      accessTokenValidity: cdk.Duration.minutes(60), // アクセストークンの有効期限を60分に設定
+      refreshTokenValidity: cdk.Duration.days(30), // リフレッシュトークンの有効期限を30日に設定
     });
 
     // API用のLambda関数を作成
@@ -194,6 +195,7 @@ export class InfraStack extends cdk.Stack {
             cloudfront.OriginRequestPolicy.ALL_VIEWER_EXCEPT_HOST_HEADER,
         },
       },
+      // TODO: CloudWatch Logsへのログ出力が機能追加したら有効化する
     });
   }
 }
