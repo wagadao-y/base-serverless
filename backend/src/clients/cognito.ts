@@ -2,6 +2,7 @@ import {
   CognitoIdentityProviderClient,
   AdminInitiateAuthCommand,
 } from "@aws-sdk/client-cognito-identity-provider";
+import { CognitoJwtVerifier } from "aws-jwt-verify";
 
 // Cognito認証クライアント
 // 参考：CognitoのAPI仕様
@@ -10,6 +11,7 @@ export class CognitoClient {
   private userpoolId: string;
   private clientId: string;
   private client: CognitoIdentityProviderClient;
+  private verifier;
 
   constructor() {
     const requiredEnvVars = ["USER_POOL_ID", "USER_POOL_CLIENT_ID"];
@@ -26,9 +28,19 @@ export class CognitoClient {
     this.userpoolId = process.env.USER_POOL_ID as string;
     this.clientId = process.env.USER_POOL_CLIENT_ID as string;
     this.client = new CognitoIdentityProviderClient({});
+    this.verifier = CognitoJwtVerifier.create({
+      userPoolId: this.userpoolId,
+      tokenUse: "access",
+      clientId: this.clientId,
+    });
   }
 
-  // ユーザーIDとパスワードで認証
+  /**
+   * Cognito認証
+   * @param userId
+   * @param password
+   * @returns
+   */
   async authenticate(userId: string, password: string) {
     try {
       const command = new AdminInitiateAuthCommand({
@@ -51,6 +63,20 @@ export class CognitoClient {
     } catch (error) {
       console.error("Cognitoの認証に失敗しました:", error);
       return { success: false };
+    }
+  }
+
+  /**
+   * Cognitoアクセストークンの検証
+   * @param accessToken
+   * @returns
+   */
+  async verify(accessToken: string) {
+    try {
+      const payload = await this.verifier.verify(accessToken);
+      return payload;
+    } catch (error) {
+      throw new Error("トークンの検証に失敗しました");
     }
   }
 }

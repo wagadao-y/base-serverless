@@ -46,10 +46,29 @@ export const createAuthHandlers = (authService: AuthService) => {
       }
 
       // ログイン認証（失敗時はService層で例外がスローされる）
-      const { sessionId } = await authService.login(userId, password);
+      const { accessToken, refreshToken, expiresIn } = await authService.login(
+        userId,
+        password
+      );
+
+      const cookies = {
+        accessToken,
+        refreshToken,
+      };
+
+      Object.keys(cookies).forEach((key) => {
+        const cookieKey = key as keyof typeof cookies;
+
+        setCookie(c, key, cookies[cookieKey], {
+          httpOnly: true,
+          secure: true,
+          sameSite: "Strict",
+          maxAge: expiresIn,
+        });
+      });
 
       // Cookieにセッションを設定
-      setCookie(c, "sessionId", sessionId, {
+      setCookie(c, "accessToken", accessToken, {
         httpOnly: true,
         secure: true,
         sameSite: "Strict",
@@ -202,19 +221,19 @@ export const createAuthHandlers = (authService: AuthService) => {
       });
     }),
 
-    // セッションの検証
-    verifySession: factory.createHandlers(async (c) => {
-      const sessionId = getCookie(c, "sessionId");
+    // // セッションの検証
+    // verifySession: factory.createHandlers(async (c) => {
+    //   const sessionId = getCookie(c, "sessionId");
 
-      if (!sessionId) {
-        throw new HTTPException(400, {
-          message: "cookieにセッションIDが含まれていません",
-        });
-      }
+    //   if (!sessionId) {
+    //     throw new HTTPException(400, {
+    //       message: "cookieにセッションIDが含まれていません",
+    //     });
+    //   }
 
-      // セッション検証（失敗時はService層で例外がスローされる）
-      const { userId } = await authService.verifySession(sessionId);
-      return c.json({ userId: userId });
-    }),
+    //   // セッション検証（失敗時はService層で例外がスローされる）
+    //   const { userId } = await authService.verifySession(sessionId);
+    //   return c.json({ userId: userId });
+    // }),
   };
 };

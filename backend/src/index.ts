@@ -1,22 +1,18 @@
 import { Hono } from "hono";
 import { handle } from "hono/aws-lambda";
-import { createAuthModule } from "./modules/auth";
 import { errorHandler } from "./handlers/error";
-import { auth } from "hono/utils/basic-auth";
+import { publicRouter } from "./routes/public";
+import { privateRouter } from "./routes/private";
+import { adminRouter } from "./routes/admin";
 
-const authHandlers = createAuthModule();
+const app = new Hono().onError(errorHandler);
 
 // ルートの設定
-const app = new Hono();
-app.onError(errorHandler);
-app.post("/api/auth/login", ...authHandlers.login);
-app.post("/api/auth/login-mfa", ...authHandlers.loginMfa);
-app.post("/api/auth/verify-totp-setup", ...authHandlers.verifyTotpSetup);
-app.post("/api/auth/respond-to-mfa", ...authHandlers.respondToMfa);
-app.get("/api/auth/verify-session", ...authHandlers.verifySession);
-app.get("/api/hello", (c) => {
-  return c.text("Hello Hono!!");
-});
+export const appRouter = app
+  .route("/api/public", publicRouter) // 認証不要のルート
+  .route("/api/private", privateRouter) // 認証必須のルート
+  .route("/api/admin", adminRouter); // 管理者用のルート
 
 export const handler = handle(app);
 export default app;
+export type AppType = typeof appRouter;

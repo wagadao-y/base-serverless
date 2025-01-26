@@ -13,16 +13,6 @@ export async function postLambdaUrl(
   body: string,
   options?: Omit<RequestInit, 'method' | 'body'>
 ): Promise<Response> {
-  const hashPayload = async (payload: string) => {
-    // SHA-256ハッシュ値を計算
-    const encoder = new TextEncoder().encode(payload);
-    const hash = await crypto.subtle.digest('SHA-256', encoder);
-
-    // ハッシュ値をbase64に変換
-    const hashArray = Array.from(new Uint8Array(hash));
-    return hashArray.map((bytes) => bytes.toString(16).padStart(2, '0')).join('');
-  };
-
   // デフォルトのヘッダーを設定
   const defaultHeaders: HeadersInit = {
     'Content-Type': 'application/json',
@@ -42,3 +32,18 @@ export async function postLambdaUrl(
 
   return fetch(url, mergedOptions);
 }
+
+/**
+ * ペイロードのSHA-256ハッシュ値を計算して返します
+ * @param payload
+ * @returns
+ */
+export const hashPayload = async (payload: string) => {
+  // SHA-256ハッシュ値を計算
+  const encoder = new TextEncoder().encode(payload);
+  const hash = await crypto.subtle.digest('SHA-256', encoder);
+
+  // ハッシュ値をbase64に変換
+  const hashArray = Array.from(new Uint8Array(hash));
+  return hashArray.map((bytes) => bytes.toString(16).padStart(2, '0')).join('');
+};
