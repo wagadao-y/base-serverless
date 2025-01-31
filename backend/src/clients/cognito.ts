@@ -1,6 +1,7 @@
 import {
   CognitoIdentityProviderClient,
   AdminInitiateAuthCommand,
+  AuthFlowType,
 } from "@aws-sdk/client-cognito-identity-provider";
 import { CognitoJwtVerifier } from "aws-jwt-verify";
 
@@ -46,7 +47,7 @@ export class CognitoClient {
       const command = new AdminInitiateAuthCommand({
         ClientId: this.clientId,
         UserPoolId: this.userpoolId,
-        AuthFlow: "ADMIN_USER_PASSWORD_AUTH",
+        AuthFlow: AuthFlowType.ADMIN_USER_PASSWORD_AUTH,
         AuthParameters: {
           USERNAME: userId,
           PASSWORD: password,

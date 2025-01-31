@@ -1,4 +1,5 @@
-import { postLambdaUrl } from '$lib/util/postLambdaUrl';
+import { apiClient } from './client';
+import { hashPayload } from '$lib/util/postLambdaUrl';
 
 // 認証エラークラス
 export class AuthError extends Error {
@@ -24,8 +25,15 @@ export type VerifyResponse = {
 // ログイン処理のAPI呼び出し
 export async function login(userId: string, password: string): Promise<LoginResponse> {
   try {
-    const payload = JSON.stringify({ userId, password });
-    const response = await postLambdaUrl('/api/auth/login', payload);
+    const payload = { userId, password };
+    const response = await apiClient.api.public.auth.login.$post(
+      { json: payload },
+      {
+        headers: {
+          'x-amz-content-sha256': await hashPayload(JSON.stringify(payload))
+        }
+      }
+    );
 
     if (!response.ok) {
       if (response.status === 401) {

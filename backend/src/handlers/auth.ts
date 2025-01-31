@@ -51,11 +51,11 @@ export const createAuthHandlers = (authService: AuthService) => {
         password
       );
 
+      // トークンをCookieに設定
       const cookies = {
         accessToken,
         refreshToken,
       };
-
       Object.keys(cookies).forEach((key) => {
         const cookieKey = key as keyof typeof cookies;
 
@@ -65,15 +65,6 @@ export const createAuthHandlers = (authService: AuthService) => {
           sameSite: "Strict",
           maxAge: expiresIn,
         });
-      });
-
-      // Cookieにセッションを設定
-      setCookie(c, "accessToken", accessToken, {
-        httpOnly: true,
-        secure: true,
-        sameSite: "Strict",
-        path: "/api",
-        maxAge: 60 * 60 * 24, // 24 時間
       });
 
       return c.json({ userId: userId });

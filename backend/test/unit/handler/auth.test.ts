@@ -6,7 +6,7 @@ import { HTTPException } from "hono/http-exception";
 const loginMock = vi.hoisted(() => vi.fn());
 const verifyMock = vi.hoisted(() => vi.fn());
 
-vi.mock("@/service/auth", () => {
+vi.mock("@/services/auth", () => {
   return {
     AuthService: vi.fn().mockImplementation(() => ({
       login: loginMock,

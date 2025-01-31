@@ -54,8 +54,7 @@ export class AuthService {
     if (
       !authResult.success ||
       !authResult.accessToken ||
-      !authResult.refreshToken ||
-      !authResult.expiresIn
+      !authResult.refreshToken
     ) {
       throw new HTTPException(401, { message: "認証に失敗しました" });
     }
@@ -64,7 +63,7 @@ export class AuthService {
     return {
       accessToken: authResult.accessToken,
       refreshToken: authResult.refreshToken,
-      expiresIn: authResult.expiresIn, // 有効期限（秒）
+      expiresIn: 60 * 60 * 24 * 30, // 有効期限を30日に設定（実際はトークン内の有効期限でリフレッシュする）
     };
   }
 

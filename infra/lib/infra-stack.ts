@@ -87,7 +87,7 @@ export class InfraStack extends cdk.Stack {
       accountRecovery: cognito.AccountRecovery.NONE, // アカウントリカバリーを無効化
       removalPolicy: cdk.RemovalPolicy.RETAIN, // スタック削除時にユーザープールを削除しない
       // 以下はMFA用
-      mfa: cognito.Mfa.REQUIRED, // MFAを必須に変更
+      mfa: cognito.Mfa.OPTIONAL, // MFAをオプションに設定
       mfaSecondFactor: {
         otp: true, // ワンタイムパスワード(QRコード)
         sms: false,
