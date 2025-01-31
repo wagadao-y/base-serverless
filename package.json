@@ -6,7 +6,7 @@
   ],
   "scripts": {
     "dev:front": "npm run -w frontend dev",
-    "dev:infra": "npx -w infra cdk watch",
+    "dev:infra": "npm run -w infra dev",
     "dev": "npm-run-all2 -p dev:*",
     "test": "npx vitest --silent",
     "coverage": "npx vitest run --coverage",
