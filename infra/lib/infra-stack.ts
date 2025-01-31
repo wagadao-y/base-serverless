@@ -117,7 +117,7 @@ export class InfraStack extends cdk.Stack {
         runtime: lambda.Runtime.NODEJS_22_X,
         memorySize: 512,
         bundling: {
-          forceDockerBundling: false,
+          forceDockerBundling: false, // Dockderではなくesbuildでビルドする
         },
         timeout: cdk.Duration.seconds(10),
         environment: {
@@ -155,6 +155,7 @@ export class InfraStack extends cdk.Stack {
       authType: lambda.FunctionUrlAuthType.AWS_IAM,
     });
 
+    // SPAのURL直アクセス対策用のCloudFront Function
     const spaRoutingCf2Function = new cloudfront.Function(
       this,
       "SpaRoutingCf2Function",
