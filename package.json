@@ -6,7 +6,7 @@
   ],
   "scripts": {
     "dev:front": "npm run -w frontend dev",
-    "dev:infra": "npm run -w infra dev",
+    "dev:back": "npm run -w backend dev",
     "dev": "npm-run-all2 -p dev:*",
     "test": "npx vitest --silent",
     "coverage": "npx vitest run --coverage",
@@ -21,6 +21,7 @@
     "npm-check-updates": "17.1.14",
     "npm-run-all2": "7.0.2",
     "prettier": "3.4.2",
+    "tsx": "4.19.2",
     "typescript": "5.7.3",
     "typescript-eslint": "8.21.0",
     "vitest": "3.0.4"

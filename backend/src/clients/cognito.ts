@@ -4,6 +4,7 @@ import {
   AuthFlowType,
 } from "@aws-sdk/client-cognito-identity-provider";
 import { CognitoJwtVerifier } from "aws-jwt-verify";
+import { awsConfig } from "@/awsConfig";
 
 // Cognito認証クライアント
 // 参考：CognitoのAPI仕様
@@ -28,7 +29,7 @@ export class CognitoClient {
 
     this.userpoolId = process.env.USER_POOL_ID as string;
     this.clientId = process.env.USER_POOL_CLIENT_ID as string;
-    this.client = new CognitoIdentityProviderClient({});
+    this.client = new CognitoIdentityProviderClient(awsConfig);
     this.verifier = CognitoJwtVerifier.create({
       userPoolId: this.userpoolId,
       tokenUse: "access",

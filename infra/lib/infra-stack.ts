@@ -122,6 +122,7 @@ export class InfraStack extends cdk.Stack {
         timeout: cdk.Duration.seconds(10),
         environment: {
           // 環境変数
+          // ローカル開発サーバーを使う場合はbackend/.env.localを更新する
           TABLE_NAME: table.tableName, // DynamoDBのテーブル名
           USER_POOL_ID: userPool.userPoolId, // CognitoのユーザープールID
           USER_POOL_CLIENT_ID: userPoolClient.userPoolClientId, // CognitoのクライアントID

@@ -1,6 +1,5 @@
 import { defineConfig } from 'vitest/config';
 import { sveltekit } from '@sveltejs/kit/vite';
-import { SERVER_PROXY_TARGET } from './.env';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
@@ -13,7 +12,7 @@ export default defineConfig({
     host: '127.0.0.1',
     proxy: {
       '/api': {
-        target: SERVER_PROXY_TARGET,
+        target: 'http://127.0.0.1:3000/',
         changeOrigin: true
       }
     },

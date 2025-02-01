@@ -1,13 +1,14 @@
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient, PutCommand } from "@aws-sdk/lib-dynamodb";
 import { randomUUID } from "crypto";
+import { awsConfig } from "@/awsConfig";
 
 export class ItemRepository {
   private readonly docClient: DynamoDBDocumentClient;
   private readonly tableName: string;
 
   constructor() {
-    const client = new DynamoDBClient({});
+    const client = new DynamoDBClient(awsConfig);
     this.docClient = DynamoDBDocumentClient.from(client);
     this.tableName = process.env.DYNAMODB_TABLE_NAME || "items";
   }
