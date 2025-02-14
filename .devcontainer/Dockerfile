@@ -13,6 +13,7 @@ RUN dnf update -y \
   zip \
   jq \
   which \
+  tree \
   && dnf clean all \
   && rm -rf /var/cache/dnf/*
 
