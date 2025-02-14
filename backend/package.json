@@ -5,13 +5,13 @@
     "dev": "tsx watch --env-file=.env.local src/index.ts"
   },
   "dependencies": {
-    "@aws-sdk/client-cognito-identity-provider": "3.738.0",
-    "@aws-sdk/client-dynamodb": "3.738.0",
-    "@aws-sdk/lib-dynamodb": "3.738.0",
+    "@aws-sdk/client-cognito-identity-provider": "3.744.0",
+    "@aws-sdk/client-dynamodb": "3.744.0",
+    "@aws-sdk/lib-dynamodb": "3.744.0",
     "@hono/node-server": "1.13.8",
     "@hono/valibot-validator": "0.5.2",
     "aws-jwt-verify": "5.0.0",
-    "hono": "4.6.20",
-    "valibot": "1.0.0-beta.14"
+    "hono": "4.7.1",
+    "valibot": "1.0.0-rc.0"
   }
 }
