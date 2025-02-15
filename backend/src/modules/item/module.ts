@@ -1,6 +1,6 @@
-import { ItemService } from "@/services/item";
-import { ItemRepository } from "@/repositories/item";
-import { createItemHandlers } from "@/handlers/item";
+import { createItemHandlers } from "@/modules/item/controller";
+import { ItemService } from "@/modules/item/service";
+import { ItemRepository } from "@/modules/item/repository";
 
 // 認証モジュール
 export function createAuthModule() {

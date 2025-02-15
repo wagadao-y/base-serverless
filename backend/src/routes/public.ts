@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import { vValidator } from "@hono/valibot-validator";
 import * as v from "valibot";
-import { createAuthModule } from "@/modules/auth";
+import { createAuthModule } from "@/modules/auth/module";
 
 const authHandlers = createAuthModule();
 

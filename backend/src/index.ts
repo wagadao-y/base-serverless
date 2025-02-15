@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import { handle } from "hono/aws-lambda";
 import { serve } from "@hono/node-server";
-import { errorHandler } from "./handlers/error";
+import { errorHandler } from "@/modules/error/controller";
 import { publicRouter } from "./routes/public";
 import { privateRouter } from "./routes/private";
 import { adminRouter } from "./routes/admin";

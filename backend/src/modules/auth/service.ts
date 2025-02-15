@@ -1,4 +1,4 @@
-import { SessionRepository } from "@/repositories/session";
+import { SessionRepository } from "@/modules/session/repository";
 import { CognitoClient } from "@/clients/cognito";
 import { HTTPException } from "hono/http-exception";
 
@@ -9,7 +9,7 @@ export class AuthService {
   constructor(
     private sessionRepository: SessionRepository,
     private cognitoClient: CognitoClient
-  ) {}
+  ) { }
 
   // // セッションID生成
   // private generateSessionId(): string {

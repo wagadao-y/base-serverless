@@ -1,6 +1,6 @@
 import { getCookie, setCookie } from "hono/cookie";
 import { createFactory } from "hono/factory";
-import { AuthService } from "@/services/auth";
+import { AuthService } from "@/modules/auth/service";
 import { HTTPException } from "hono/http-exception";
 
 // TODO 後で各層に分離する *******************************

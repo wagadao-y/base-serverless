@@ -1,6 +1,6 @@
 import { Context } from "hono";
 import { createFactory } from "hono/factory";
-import { ItemService } from "@/services/item";
+import { ItemService } from "@/modules/item/service";
 import { HTTPException } from "hono/http-exception";
 
 const factory = createFactory();

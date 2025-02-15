@@ -1,7 +1,7 @@
-import { AuthService } from "@/services/auth";
-import { SessionRepository } from "@/repositories/session";
+import { createAuthHandlers } from "@/modules/auth/controller";
+import { AuthService } from "@/modules/auth/service";
+import { SessionRepository } from "@/modules/session/repository";
 import { CognitoClient } from "@/clients/cognito";
-import { createAuthHandlers } from "@/handlers/auth";
 
 // 認証モジュール
 export function createAuthModule() {
